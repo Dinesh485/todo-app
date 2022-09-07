@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 
 export default function Home() {
@@ -36,6 +36,22 @@ export default function Home() {
 
     setItems(newItems);
   };
+
+   
+
+
+  useEffect(() =>{
+      const localItems = JSON.parse(localStorage.getItem('items'))
+      if(localItems && localItems.length > 0){
+         setItems(localItems)
+      }
+  },[])
+
+  
+  useEffect(() =>{
+    localStorage.setItem('items', JSON.stringify(items))
+},[items])
+ 
 
   return (
     <div className="container flex h-screen min-h-[500px] max-h-screen flex-col gap-4 p-4 mx-auto lg:gap-6">
